@@ -98,11 +98,7 @@ Exemplo:
     'Oeste'
 
 """
-
-NORTE = 'Norte'
-SUL = 'Sul'
-LESTE = 'Leste'
-OESTE = 'Oeste'
+DIRECOES = ('Norte', 'Leste', 'Sul', 'Oeste')
 
 
 class Motor:
@@ -114,29 +110,21 @@ class Motor:
 
     def frear(self):
         self.velocidade -= 2
-        self.velocidade = max(0, self.velocidade)
+        self.velocidade = max(0, self.velocidade)  # impede valores negativos
 
 
 class Direcao:
-    rotacao_a_direta_dct = {NORTE: LESTE,
-                            LESTE: SUL,
-                            SUL: OESTE,
-                            OESTE: NORTE
-                            }
-    rotacao_a_esquerda_dct = {NORTE: OESTE,
-                              OESTE: SUL,
-                              SUL: LESTE,
-                              LESTE: NORTE
-                              }
-
     def __init__(self):
-        self.valor = NORTE
+        self.__direcao = 0
+        self.valor = DIRECOES[self.__direcao]
 
     def girar_a_direita(self):
-        self.valor = self.rotacao_a_direta_dct[self.valor]
+        self.__direcao = (self.__direcao + 1) % len(DIRECOES)
+        self.valor = DIRECOES[self.__direcao]
 
     def girar_a_esquerda(self):
-        self.valor = self.rotacao_a_esquerda_dct[self.valor]
+        self.__direcao = (self.__direcao - 1) % len(DIRECOES)
+        self.valor = DIRECOES[self.__direcao]
 
 
 if __name__ == '__main__':
