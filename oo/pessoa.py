@@ -25,3 +25,9 @@ if __name__ == '__main__':
     print(cicero.idade)
     for filho in cicero.filhos:
         print(filho.nome)
+    cicero.sobrenome = 'Rodrigues'  # atributo criado dinamicamente para esta instancia
+    print(cicero.__dict__)
+    print(renzo.__dict__)
+    del cicero.filhos
+    print(cicero.__dict__)
+    print(renzo.__dict__)
