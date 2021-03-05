@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-from os import path
+
 import sys
+from os import path
+from unittest.case import TestCase
+
+from atores import Ator, DESTRUIDO, ATIVO, Obstaculo, Porco, PassaroAmarelo, PassaroVermelho
 
 project_dir = path.dirname(__file__)
 project_dir = path.join('..')
 sys.path.append(project_dir)
 
-import unittest
-from unittest.case import TestCase
-from atores import Ator, DESTRUIDO, ATIVO, Obstaculo, Porco, PassaroAmarelo, PassaroVermelho
-
 
 class AtorTestes(TestCase):
     def teste_valores_padrao(self):
-        'Testa valores iniciais padrão de um Ator'
+        """Testa valores iniciais padrão de um Ator"""
         ator = Ator()
         self.assertEqual(0, ator.x)
         self.assertEqual(0, ator.y)
@@ -23,7 +23,7 @@ class AtorTestes(TestCase):
         self.assertEqual('A', ator.caracter())
 
     def teste_valores_passados_por_parametro(self):
-        'Testa se valores passados no inicializador são armazenados no objeto'
+        """Testa se valores passados no inicializador são armazenados no objeto"""
         ator = Ator(1, 2)
         self.assertEqual(1, ator.x)
         self.assertEqual(2, ator.y)
@@ -31,7 +31,7 @@ class AtorTestes(TestCase):
         self.assertEqual('A', ator.caracter())
 
     def teste_ator_posicao(self):
-        'Teste que verifica que o ator comum não deve se mover independente do tempo do jogo'
+        """Teste que verifica que o ator comum não deve se mover independente do tempo do jogo"""
         ator = Ator()
         x, y = ator.calcular_posicao(0)
         self.assertEqual(0, x)
@@ -41,7 +41,6 @@ class AtorTestes(TestCase):
         x, y = ator.calcular_posicao(10)
         self.assertEqual(0.3, x)
         self.assertEqual(0.5, y)
-
 
     def teste_colisao_entre_atores_ativos(self):
         """
@@ -67,7 +66,7 @@ class AtorTestes(TestCase):
         self.assert_colisao_atores_ativos(Ator(2, 2), Ator(2, 4), 2)
 
     def teste_nao_colisao_entre_atores_distantes(self):
-        'Teste de que não há colisão entre atores distantes'
+        """Teste de que não há colisão entre atores distantes"""
         self.assert_nao_colisao(Ator(2, 2), Ator(2, 4))
         self.assert_nao_colisao(Ator(2, 2), Ator(3, 4))
         self.assert_nao_colisao(Ator(2, 2), Ator(4, 2))
@@ -78,9 +77,9 @@ class AtorTestes(TestCase):
         self.assert_nao_colisao(Ator(2, 2), Ator(0, 4))
 
     def teste_colisao_somente_um_ator_destruido(self):
-        'Teste de que um ator destruído não pode colidir com nenhum outro, mesmo que estejam próximos'
+        """Teste de que um ator destruído não pode colidir com nenhum outro, mesmo que estejam próximos"""
         ator = Ator(2, 2)
-        ator.colidir(ator, 0)  # colidindo ator com ele mesmo para alterar seu status para destruido
+        ator.colidir(ator, 0)  # colidindo ator com ele mesmo para alterar seu status para destruído
         ator2 = Ator(2, 2)
         self.assert_nao_colisao(ator, ator2)
         self.assert_nao_colisao(Ator(2, 3), ator)
@@ -102,13 +101,12 @@ class AtorTestes(TestCase):
         self.assert_nao_colisao(Ator(1, 3), ator)
 
     def test_caracter(self):
-        'Teste de caracter para status ATIVO e DESTRUIDO'
+        """Teste de caracter para status ATIVO e DESTRUÍDO"""
         ator = Ator()
         self.assertEqual('A', ator.caracter())
         outro_ator_na_mesma_posicao = Ator()
         ator.colidir(outro_ator_na_mesma_posicao)
         self.assertEqual(' ', ator.caracter())
-
 
     def assert_colisao_atores_ativos(self, ator, ator2, intervalo=1):
         """
@@ -144,8 +142,9 @@ class AtorTestes(TestCase):
 
 class ObstaculoTestes(TestCase):
     """
-    Esperado '0' como caracter de obstáculo ativo e ' ' como caracter de obstáculo destruído
+    Esperado '0' como caractere de obstáculo ativo e ' ' como caractere de obstáculo destruído
     """
+
     def teste_status(self):
         obstaculo = Obstaculo()
         self.assertEqual('O', obstaculo.caracter())
@@ -156,8 +155,9 @@ class ObstaculoTestes(TestCase):
 
 class PorcoTestes(TestCase):
     """
-    Esperado '@' como caracter de porco ativo e '+' como caracter de porco destruido
+    Esperado '@' como caractere de porco ativo e '+' como caractere de porco destruído
     """
+
     def teste_status(self):
         porco = Porco()
         self.assertEqual('@', porco.caracter())
@@ -168,8 +168,8 @@ class PorcoTestes(TestCase):
 
 class PassaroBaseTests(TestCase):
     """
-    Classe base para teste de passaros.
-    Essa classe não contèm nenhum teste, serve apenas para encapsular a lógica de asserção de posição de passaros
+    Classe base para teste de pássaros.
+    Essa classe não contém nenhum teste, serve apenas para encapsular a lógica de asserção de posição de passaros
     vermelhos e também dos amarelos.
 
     """
@@ -202,14 +202,12 @@ class PassaroVermelhoTests(PassaroBaseTests):
         passaro_vermelho.colidir(outro_ator_na_mesma_posicao)
         self.assertEqual('v', passaro_vermelho.caracter())
 
-
     def teste_velocidade_escalar(self):
         self.assertEqual(20, PassaroVermelho.velocidade_escalar)
 
-
     def teste_foi_lancado(self):
         """
-        Teste de lançamento. Enquanto o método lançar do passaro não for chamado, o méotodo foi_lancado deve retornar
+        Teste de lançamento. Enquanto o método lançar do pássaro não for chamado, o método foi_lancado deve retornar
         Falso
         :return:
         """
@@ -244,7 +242,7 @@ class PassaroVermelhoTests(PassaroBaseTests):
 
 class PassaroAmareloTests(PassaroBaseTests):
     """
-    Classe de Tests para passaros amarelos
+    Classe de Tests para pássaros amarelos
     """
 
     def teste_status(self):
@@ -259,13 +257,11 @@ class PassaroAmareloTests(PassaroBaseTests):
 
     def teste_lacamento_vertical(self):
         """
-        Tests de lançamento vertical. Nele, o passaro só se move verticalmente e sua posição y se matém contanstante
+        Tests de lançamento vertical. Nele, o pássaro só se move verticalmente e sua posição y se matém contanstante
         :return:
         """
         passaro_amarelo = PassaroAmarelo(1, 1)
         passaro_amarelo.lancar(90, 2)  # passaro lancado a 90 graus no tempo 2 segundos
-
-
 
         # subindo
 
@@ -313,7 +309,7 @@ class PassaroAmareloTests(PassaroBaseTests):
 
     def test_lancamento_45_graus(self):
         passaro_amarelo = PassaroAmarelo(1, 1)
-        passaro_amarelo.lancar(45, 2)  # passaro lancado a 45 graus no tempo 2 segundos
+        passaro_amarelo.lancar(45, 2)  # pássaro lançado a 45 graus no tempo 2 segundos
         self.assert_passaro_posicao(1, 1, ATIVO, passaro_amarelo, 2.0)
         self.assert_passaro_posicao(1, 1, ATIVO, passaro_amarelo, 2.01)
         self.assert_passaro_posicao(1, 1, ATIVO, passaro_amarelo, 2.02)
@@ -759,6 +755,6 @@ class PassaroAmareloTests(PassaroBaseTests):
         self.assert_passaro_posicao(1, y, ATIVO, passaro, tempo)
 
 
-if __name__=='__main__':
-    teste= AtorTestes()
+if __name__ == '__main__':
+    teste = AtorTestes()
     teste.teste_colisao_entre_atores_ativos()
