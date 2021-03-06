@@ -6,7 +6,7 @@ DERROTA = 'DERROTA'
 EM_ANDAMENTO = 'EM_ANDAMENTO'
 
 
-class Ponto():
+class Ponto:
     def __init__(self, x, y, caracter):
         self.caracter = caracter
         self.x = round(x)
@@ -22,7 +22,7 @@ class Ponto():
         return "Ponto(%s,%s,'%s')" % (self.x, self.y, self.caracter)
 
 
-class Fase():
+class Fase:
     def __init__(self, intervalo_de_colisao=1):
         """
         Método que inicializa uma fase.
@@ -70,7 +70,7 @@ class Fase():
 
         :return:
         """
-        return EM_ANDAMENTO
+        return VITORIA
 
     def lancar(self, angulo, tempo):
         """
