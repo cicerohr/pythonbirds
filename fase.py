@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from atores import ATIVO
 
 VITORIA = 'VITORIA'
 DERROTA = 'DERROTA'
@@ -70,7 +70,12 @@ class Fase:
 
         :return:
         """
-        return VITORIA
+        if not self._possui_porco_ativo():
+            return VITORIA
+        elif self._possui_passaros_ativos():
+            return EM_ANDAMENTO
+        else:
+            return DERROTA
 
     def lancar(self, angulo, tempo):
         """
@@ -100,3 +105,17 @@ class Fase:
 
     def _transformar_em_ponto(self, ator):
         return Ponto(ator.x, ator.y, ator.caracter())
+
+    def _possui_porco_ativo(self):
+        for porco in self._porcos:
+            if porco.status == ATIVO:
+                return True
+
+        return False
+
+    def _possui_passaros_ativos(self):
+        for passaro in self._passaros:
+            if passaro.status == ATIVO:
+                return True
+
+        return False
