@@ -222,7 +222,7 @@ class PassaroVermelhoTests(PassaroBaseTests):
 
     def teste_colisao_com_chao(self):
         """
-        Testando que o passáro colide quando sua posição y é menor ou igual a 0
+        Testando que o pássaro colide quando sua posição y é menor ou igual a 0
         :return:
         """
         passaro = PassaroVermelho(0, 0)
@@ -259,7 +259,7 @@ class PassaroAmareloTests(PassaroBaseTests):
 
     def teste_lacamento_vertical(self):
         """
-        Tests de lançamento vertical. Nele, o pássaro só se move verticalmente e sua posição y se matém contanstante
+        Tests de lançamento vertical. Nele, o pássaro só se move verticalmente e sua posição y se mantém constante
         :return:
         """
         passaro_amarelo = PassaroAmarelo(1, 1)
