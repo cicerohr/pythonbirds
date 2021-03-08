@@ -103,10 +103,11 @@ class Passaro(Ator):
     def colidir_com_chao(self):
         """
         Método que executa lógica de colisão com o chão. Toda vez que y for menor ou igual a 0,
-        o status dos Passaro deve ser alterado para destruido, bem como o seu caracter
+        o status dos Passaro deve ser alterado para destruido, bem como o seu caractere
 
         """
-        pass
+        if self.y <= 0:
+            self.status = DESTRUIDO
 
     def calcular_posicao(self, tempo):
         """
@@ -122,7 +123,7 @@ class Passaro(Ator):
         :param tempo: tempo de jogo a ser calculada a posição
         :return: posição x, y
         """
-        if self.foi_lancado():
+        if self._esta_voando():
             delta_t = tempo - self._tempo_de_lancamento
             self._calcular_posicao_vertical(delta_t)
             self._calcular_posicao_horizontal(delta_t)
@@ -138,13 +139,13 @@ class Passaro(Ator):
         :param tempo_de_lancamento:
         :return:
         """
-        self._angulo_de_lancamento = angulo
+        self._angulo_de_lancamento = radians(angulo)
         self._tempo_de_lancamento = tempo_de_lancamento
 
     def _calcular_posicao_vertical(self, delta_t):
         """ Fórmula: Y=Y0+v*sen(teta)delta_t-(G*delta_t^2)/2. """
         y_atual = self._y_inicial
-        angulo_radianos = radians(self._angulo_de_lancamento)
+        angulo_radianos = self._angulo_de_lancamento
         y_atual += self.velocidade_escalar * delta_t * sin(angulo_radianos)
         y_atual -= (GRAVIDADE * (delta_t ** 2)) / 2
         self.y = y_atual
@@ -152,9 +153,12 @@ class Passaro(Ator):
     def _calcular_posicao_horizontal(self, delta_t):
         """ Fórmula: X=X0+v*cos(teta)*delta_t. """
         x_atual = self._x_inicial
-        angulo_radianos = radians(self._angulo_de_lancamento)
+        angulo_radianos = self._angulo_de_lancamento
         x_atual += self.velocidade_escalar * delta_t * cos(angulo_radianos)
         self.x = x_atual
+
+    def _esta_voando(self):
+        return self.foi_lancado() and self.status == ATIVO
 
 
 class PassaroAmarelo(Passaro):
