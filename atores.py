@@ -77,7 +77,7 @@ class Passaro(Ator):
         """
         Método de inicialização de pássaro.
 
-        Deve chamar a inicialização de ator. Além disso, deve armazenar a posição inicial e incializar o tempo de
+        Deve chamar a inicialização de ator. Além disso, deve armazenar a posição inicial e inicializar o tempo de
         lançamento e angulo de lançamento
 
         :param x:
@@ -139,3 +139,5 @@ class PassaroAmarelo(Passaro):
 
 class PassaroVermelho(Passaro):
     _caracter_ativo = 'V'
+    _caracter_destruido = 'v'
+    velocidade_escalar = 20

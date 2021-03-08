@@ -178,6 +178,7 @@ class PassaroBaseTests(TestCase):
         """
         Método que se testa posição do pássaro.
         Atenção: Esse não é um método de teste porque não se inicia com prefixo "test".
+
         :param x_esperado: posição x esperada do passaro
         :param y_esperado: posição y esperada do passaro
         :param status_esperado: status esperado do passaro
@@ -209,6 +210,7 @@ class PassaroVermelhoTests(PassaroBaseTests):
         """
         Teste de lançamento. Enquanto o método lançar do pássaro não for chamado, o método foi_lancado deve retornar
         Falso
+
         :return:
         """
         passaro_vermelho = PassaroVermelho(1, 1)
