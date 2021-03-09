@@ -1,24 +1,23 @@
 # -*- coding: utf-8 -*-
-from itertools import chain
 
+import math
 import os
+import sys
 from os import path
 from unittest.case import TestCase
-import math
-import sys
+
+from atores import Obstaculo, Porco, PassaroVermelho, PassaroAmarelo, DESTRUIDO
+from fase import Fase, Ponto, EM_ANDAMENTO, VITORIA, DERROTA
+from placa_grafica_tkinter import rodar_fase
 
 project_dir = path.dirname(__file__)
 project_dir = path.join('..')
 sys.path.append(project_dir)
-from placa_grafica_tkinter import rodar_fase
 
 project_dir = os.path.join(os.path.dirname(__file__), '..')
 project_dir = os.path.normpath(project_dir)
 sys.path.append(project_dir)
 
-from atores import Obstaculo, Porco, PassaroVermelho, PassaroAmarelo, DESTRUIDO, ATIVO, \
-    Ator, Passaro
-from fase import Fase, Ponto, EM_ANDAMENTO, VITORIA, DERROTA
 
 class FaseTestes(TestCase):
     def teste_acabou_com_porcos_e_passaros(self):
@@ -96,9 +95,9 @@ class FaseTestes(TestCase):
         self.assertEqual(3, passaro_amarelo._tempo_de_lancamento)
 
     def teste_intervalo_de_colisao_padrão(self):
-        '''
+        """
         Método que testa se o intervalo de colisão da Fase é repassado aos atores. Padrão de intervalo é 1
-        '''
+        """
         fase = Fase()
         passaro = PassaroAmarelo(1, 1)
         fase.adicionar_passaro(passaro)
@@ -109,9 +108,9 @@ class FaseTestes(TestCase):
         self.assertEqual(DESTRUIDO, porco.status)
 
     def teste_intervalo_de_colisao_nao_padrao(self):
-        '''
+        """
         Método que testa se o intervalo de colisão da Fase é repassado aos atores. valor testado: 31
-        '''
+        """
         fase = Fase(30)
         passaro = PassaroAmarelo(1, 1)
         fase.adicionar_passaro(passaro)
